@@ -6,3 +6,24 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+actix-web = "4"
+
+#json stuff
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1"
+futures = "0.3"
+#auto reloading
+listenfd = "0.3"
+#env and logging
+dotenv = "0.11"
+log = "0.4"
+env_logger = "0.6"
+#dbStuff
+chrono = { version = "0.4", features = ["serde"] }
+diesel = { version = "1.4", features = ["postgres", "r2d2", "uuid", "chrono"] }
+diesel_migrations = "1.4"
+lazy_static = "1.4"
+r2d2 = "0.8"
+uuid = { version = "0.6", features = ["serde", "v4"] }
+
+
