@@ -20,7 +20,7 @@ log = "0.4"
 env_logger = "0.6"
 #dbStuff
 chrono = { version = "0.4", features = ["serde"] }
-diesel = { version = "1.4", features = ["postgres", "r2d2", "uuid", "chrono"] }
+diesel = { version = "1.4", features = ["postgres", "r2d2", "numeric", "uuid", "chrono"] }
 diesel_migrations = "1.4"
 lazy_static = "1.4"
 r2d2 = "0.8"

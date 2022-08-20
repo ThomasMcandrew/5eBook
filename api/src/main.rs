@@ -32,12 +32,7 @@ async fn main() -> std::io::Result<()> {
             //User routes
             
             //Player routes
-            .route("/player",
-                web::post()
-                .to(routes::player_routes::post_player))
-            .route("/player",
-                web::get()
-                .to(routes::player_routes::get_player))
+            .configure(routes::player_routes::init_routes)
     });
     server = match listenfd.take_tcp_listener(0)? {
         Some(listener) => server.listen(listener)?,
