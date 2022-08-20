@@ -13,7 +13,7 @@ use dotenv::dotenv;
 use std::env;
 
 mod models;
-mod player_routes;
+mod routes;
 mod api_error;
 mod schema;
 mod db;
@@ -25,15 +25,19 @@ async fn main() -> std::io::Result<()> {
     dotenv().ok();
     env_logger::init();
 
-
     let mut listenfd = ListenFd::from_env();
 
     let mut server = HttpServer::new(|| {
         App::new()
+            //User routes
+            
+            //Player routes
             .route("/player",
-                web::
-                post()
-                .to(player_routes::post_player))
+                web::post()
+                .to(routes::player_routes::post_player))
+            .route("/player",
+                web::get()
+                .to(routes::player_routes::get_player))
     });
     server = match listenfd.take_tcp_listener(0)? {
         Some(listener) => server.listen(listener)?,
