@@ -75,8 +75,8 @@ impl Player {
         let conn = db::connection()?;
 
         let res = diesel::delete(
-                user::table
-                    .filter(user::id.eq(player_id))
+                player::table
+                    .filter(player::id.eq(player_id))
             )
             .execute(&conn)?;
         Ok(res)

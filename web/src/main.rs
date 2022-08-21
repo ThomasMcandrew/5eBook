@@ -1,17 +1,12 @@
 use yew::prelude::*;
-use yew::{html, Callback};
+use wasm_logger;
 
-#[function_component(Foo)]
-fn foo() -> Html {
-    let mut i = 0;
-    html! {
-        <>
-            <h1>{i}</h1>
-            <button onclick={Callback::from(|_| ())}>
-                {"Hello"}
-            </button>
-        </>
-    }
+
+mod login;
+
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
+struct Counter {
+    count: u32,
 }
 
 #[function_component(App)]
@@ -19,11 +14,12 @@ fn app() -> Html {
     html! {
         <>
             <h1>{ "Hello World" }</h1>
-            <Foo/>
+            <login::Login/>
         </>
     }
 }
 
 fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
     yew::start_app::<App>();
 }
