@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use wasm_logger;
 
-
+mod api_caller;
 mod login;
 
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
