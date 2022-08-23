@@ -1,5 +1,6 @@
 use yew::prelude::*;
 use wasm_logger;
+use tokio;
 
 mod api_caller;
 mod login;
@@ -18,8 +19,8 @@ fn app() -> Html {
         </>
     }
 }
-
-fn main() {
+#[tokio::main]
+async fn main() {
     wasm_logger::init(wasm_logger::Config::default());
     yew::start_app::<App>();
 }

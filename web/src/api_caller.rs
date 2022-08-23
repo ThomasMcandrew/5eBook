@@ -1,21 +1,24 @@
 use reqwest;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
-use futures::Future;
-
+use tokio;
+use yew::prelude::*;
 
 pub async fn post<T,E>(url: String, object: E) -> Result<T, Error>
 where
     T: DeserializeOwned,
-    E: Serialize,
+    E: Serialize
 {
+    log::info!("in post method"); 
     let response = reqwest::Client::new()
         .post(url)
         .json(&object)
-        .to_async()
+        .send()
         .await;
+
+    log::info!("after post {:?}",response); 
     if let Ok(data) = response {
-        if let Ok(repo) = data.json::<T>().await {
-            Ok(repo)
+        if let Ok(val) = data.json::<T>().await {
+            Ok(val)
         } else {
             Err(Error::DeserializeError)
         }
@@ -29,8 +32,8 @@ where
 {
     let response = reqwest::get(url).await;
     if let Ok(data) = response {
-        if let Ok(repo) = data.json::<T>().await {
-            Ok(repo)
+        if let Ok(val) = data.json::<T>().await {
+            Ok(val)
         } else {
             Err(Error::DeserializeError)
         }

@@ -1,12 +1,13 @@
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use log;
-use serde::Serialize;
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use yew_hooks::prelude::*;
 use reqwest;
 
+use crate::api_caller;
 
-#[derive(Debug, Default, Clone, PartialEq, Eq, Serialize)]
+#[derive(Debug, Default, Clone, PartialEq, Eq, Serialize, Deserialize)]
 struct LoginModel {
     username: String,
     password: String,
@@ -22,18 +23,25 @@ pub fn login() -> Html {
         password: "".to_string(),
     });
     let login_task = {
+        log::info!("in login task level 1");
         let state = state.clone();
         use_async(async move {
-            reqwest::Client::new()
-                .post("127.0.0.1:5000/user/login")
-                .json(&(LoginModel {
-                    username: state.username,
-                    password: state.password,
-                }))
-                .send()
-                .await
-        });
+            log::info!("level 2");
+            api_caller::post::<LoginModel,LoginModel>
+                (String::from("http://127.0.0.1:5000/user/login"),
+                LoginModel{
+                    username: state.username.clone(),
+                    password: state.password.clone(),
+                }).await
+        })
     };
+    use_effect_with_deps(
+        move |state| {
+            ||()
+        },
+        state.clone(),
+    );
+
     let onchange_username = {
         let state = state.clone();
         Callback::from(move |e: Event| {
@@ -55,9 +63,8 @@ pub fn login() -> Html {
         })
     };
     let onsubmit = {
-        let state = state.clone();
-         
         Callback::from(move |_| {
+            log::info!("in here");
             login_task.run();
         })
     };
