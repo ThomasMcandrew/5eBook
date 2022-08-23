@@ -5,7 +5,7 @@ extern crate diesel;
 #[macro_use]
 extern crate diesel_migrations;
 
-
+use actix_cors::Cors;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use serde::Deserializer;
 use listenfd::ListenFd;
@@ -28,7 +28,14 @@ async fn main() -> std::io::Result<()> {
     let mut listenfd = ListenFd::from_env();
 
     let mut server = HttpServer::new(|| {
+        let cors = Cors::default()
+            .allow_any_origin()
+            .allow_any_method()
+            .allow_any_header();
+
         App::new()
+            //cors
+            .wrap(cors)
             //User routes
             
             //Player routes

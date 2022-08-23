@@ -28,7 +28,7 @@ pub fn login() -> Html {
         use_async(async move {
             log::info!("level 2");
             api_caller::post::<LoginModel,LoginModel>
-                (String::from("http://127.0.0.1:5000/user/login"),
+                (String::from("http://192.168.1.5:4000/user/login"),
                 LoginModel{
                     username: state.username.clone(),
                     password: state.password.clone(),
