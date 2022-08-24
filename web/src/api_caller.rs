@@ -3,14 +3,17 @@ use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tokio;
 use yew::prelude::*;
 
-pub async fn post<T,E>(url: String, object: E) -> Result<T, Error>
+use crate::login::LoginModel;
+
+pub async fn post<T>(url: String, object: LoginModel) -> Result<T, Error>
 where
-    T: DeserializeOwned,
-    E: Serialize
+    T: DeserializeOwned
 {
-    log::info!("in post method"); 
+    log::info!("in post method {:?}", object); 
+    
     let response = reqwest::Client::new()
         .post(url)
+        .fetch_mode_no_cors()
         .json(&object)
         .send()
         .await;

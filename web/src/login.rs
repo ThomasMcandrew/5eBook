@@ -8,7 +8,7 @@ use reqwest;
 use crate::api_caller;
 
 #[derive(Debug, Default, Clone, PartialEq, Eq, Serialize, Deserialize)]
-struct LoginModel {
+pub struct LoginModel {
     username: String,
     password: String,
 }
@@ -23,11 +23,11 @@ pub fn login() -> Html {
         password: "".to_string(),
     });
     let login_task = {
-        log::info!("in login task level 1");
+        log::info!("in login task level 1 {:?}",state.clone());
         let state = state.clone();
         use_async(async move {
-            log::info!("level 2");
-            api_caller::post::<LoginModel,LoginModel>
+            log::info!("level 2 {:?}" , state.clone());
+            api_caller::post::<LoginModel>
                 (String::from("http://192.168.1.5:4000/user/login"),
                 LoginModel{
                     username: state.username.clone(),
