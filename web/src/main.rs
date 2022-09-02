@@ -3,7 +3,7 @@ use yew_router::prelude::*;
 use wasm_logger;
 use tokio;
 
-mod api_caller;
+mod api;
 mod routes;
 mod models;
 
