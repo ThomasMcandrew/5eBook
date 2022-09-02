@@ -1,9 +1,13 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
 use wasm_logger;
 use tokio;
 
 mod api_caller;
-mod login;
+mod routes;
+mod models;
+
+use crate::routes::{switch,AppRoute};
 
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 struct Counter {
@@ -15,7 +19,9 @@ fn app() -> Html {
     html! {
         <>
             <h1>{ "Hello World" }</h1>
-            <login::Login/>
+            <BrowserRouter>
+                <Switch<AppRoute> render={Switch::render(switch)} />
+            </BrowserRouter>
         </>
     }
 }

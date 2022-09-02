@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 yew = "0.19"
+yew-router = "0.16.0"
 yew-hooks = "0.1.56"
 yewdux = "0.8"
 log = "0.4.6"

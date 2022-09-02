@@ -1,23 +1,22 @@
 use reqwest;
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
-use tokio;
-use yew::prelude::*;
+use serde::de::DeserializeOwned;
 
-use crate::login::LoginModel;
+use crate::models::login::LoginModel;
+
+
+fn get_base_url() -> String {
+    String::from("http://127.0.0.1:5000/")
+}
 
 pub async fn post<T>(url: String, object: LoginModel) -> Result<T, Error>
 where
     T: DeserializeOwned
 {
     log::info!("in post method {:?}", object); 
-    
+    let full_url = get_base_url() + url.as_str();
     let response = reqwest::Client::new()
-        .request(reqwest::Method::POST,url)
-        //.fetch_mode_no_cors()
-        //.header("Access-Control-Allow-Origin","*")
-        //.header("Access-Control-Allow-Methods","*")
-        //.header("Access-Control-Allow-Headers","*")
-        //.header("Content-Type","application/json")
+        .request(reqwest::Method::POST,
+            full_url)
         .json(&object)
         .send()
         .await;
@@ -37,7 +36,9 @@ pub async fn get<T>(url: String) -> Result<T, Error>
 where
     T: DeserializeOwned,
 {
-    let response = reqwest::get(url).await;
+    let response = reqwest
+        ::get(get_base_url() + url.as_str())
+        .await;
     if let Ok(data) = response {
         if let Ok(val) = data.json::<T>().await {
             Ok(val)
