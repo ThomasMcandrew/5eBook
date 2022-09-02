@@ -3,7 +3,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use yew_hooks::prelude::*;
 
-use crate::api_caller;
+use crate::api::user_api;
 use crate::models::login::LoginModel;
 use crate::routes::AppRoute;
 
@@ -18,9 +18,8 @@ pub fn login() -> Html {
     let login_task = {
         let state = state.clone();
         use_async(async move {
-            api_caller::post::<LoginModel>
-                (String::from("user/login"),
-                LoginModel{
+            user_api::login( 
+               LoginModel{
                     username: state.username.clone(),
                     password: state.password.clone(),
                 }).await

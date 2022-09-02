@@ -1,9 +1,11 @@
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
+use yew_router::prelude::*;
 use yew_hooks::prelude::*;
 
-use crate::api_caller;
+use crate::api::user_api;
 use crate::models::login::LoginModel;
+use crate::routes::AppRoute;
 
 #[function_component(CreateUser)]
 pub fn create_user() -> Html {
@@ -14,8 +16,7 @@ pub fn create_user() -> Html {
     let login_task = {
         let state = state.clone();
         use_async(async move {
-            api_caller::post::<LoginModel>
-                (String::from("user"),
+            user_api::create_user(
                 LoginModel{
                     username: state.username.clone(),
                     password: state.password.clone(),
@@ -68,6 +69,11 @@ pub fn create_user() -> Html {
             </div>
             <div>
                 <button onclick={onsubmit}>{"Create User"}</button>
+            </div>
+            <div>
+            <Link<AppRoute> 
+                to={AppRoute::Login}
+                >{ "login" }</Link<AppRoute>>
             </div>
         </>
     }
