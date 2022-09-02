@@ -4,7 +4,7 @@ extern crate log;
 extern crate diesel;
 #[macro_use]
 extern crate diesel_migrations;
-
+ 
 use actix_cors::Cors;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use serde::Deserializer;
