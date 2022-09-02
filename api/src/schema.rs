@@ -15,7 +15,7 @@ table! {
 table! {
     user (id) {
         id -> Int4,
-        name -> Text,
+        username -> Text,
         password -> Text,
         created_at -> Timestamp,
         updated_at -> Nullable<Timestamp>,

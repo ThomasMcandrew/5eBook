@@ -1,5 +1,5 @@
-use crate::models::player::User;
-use crate::models::player::NewUser;
+use crate::models::user::User;
+use crate::models::user::NewUser;
 use crate::api_error::ApiError;
 use actix_web::{get, 
     post, 
@@ -36,8 +36,8 @@ pub async fn post_user(
 }
 
 #[post("/user/login")]
-pub async fn post_player_login(
-        request : web::Json<NewPlayer>) -> 
+pub async fn post_user_login(
+        request : web::Json<NewUser>) -> 
             Result<HttpResponse, ApiError> {
      
     Ok(HttpResponse::Ok().json(""))
@@ -66,6 +66,7 @@ pub fn init_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(get_users);
     cfg.service(get_user);
     cfg.service(post_user);
+    cfg.service(post_user_login);
     cfg.service(update_user);
     cfg.service(delete_user);
 }

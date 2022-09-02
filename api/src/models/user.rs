@@ -24,8 +24,8 @@ pub struct User {
     Insertable,
     AsChangeset)]
 #[table_name = "user"]
-pub struct UserPlayer {
-    pub uaername: String,
+pub struct NewUser {
+    pub username: String,
     pub password: String,
 }
 

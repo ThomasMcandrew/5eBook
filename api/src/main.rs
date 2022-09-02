@@ -37,7 +37,7 @@ async fn main() -> std::io::Result<()> {
             //cors
             .wrap(cors)
             //User routes
-            
+            .configure(routes::user_routes::init_routes)
             //Player routes
             .configure(routes::player_routes::init_routes)
     });

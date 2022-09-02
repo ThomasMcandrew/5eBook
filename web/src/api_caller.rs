@@ -12,8 +12,12 @@ where
     log::info!("in post method {:?}", object); 
     
     let response = reqwest::Client::new()
-        .post(url)
-        .fetch_mode_no_cors()
+        .request(reqwest::Method::POST,url)
+        //.fetch_mode_no_cors()
+        //.header("Access-Control-Allow-Origin","*")
+        //.header("Access-Control-Allow-Methods","*")
+        //.header("Access-Control-Allow-Headers","*")
+        //.header("Content-Type","application/json")
         .json(&object)
         .send()
         .await;
