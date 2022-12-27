@@ -7,7 +7,7 @@ mod api;
 mod routes;
 mod models;
 
-use crate::routes::{switch,AppRoute};
+use crate::routes::{Nav,switch,AppRoute};
 
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 struct Counter {
@@ -20,6 +20,7 @@ fn app() -> Html {
         <>
             <h1>{ "Hello World" }</h1>
             <BrowserRouter>
+                <Nav />
                 <Switch<AppRoute> render={Switch::render(switch)} />
             </BrowserRouter>
         </>

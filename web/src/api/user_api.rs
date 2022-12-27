@@ -1,5 +1,5 @@
 use crate::models::login::LoginModel;
-use crate::api::api_caller::*;
+use crate::api::*;
 
 pub async fn login(model: LoginModel) -> Result<LoginModel, Error>
 {
